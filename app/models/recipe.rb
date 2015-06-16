@@ -10,7 +10,7 @@
 
 class Recipe < ActiveRecord::Base
   
-  @@tax = 0.13
+  @@tax = 0.14
   has_many :hasmaterials
   has_many :materials, :through => :hasmaterials
   
