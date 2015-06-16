@@ -14,7 +14,7 @@ attr_accessible :client_id, :firm_id, :reference_number, :due_date, :dated_at, :
   validates_numericality_of :reference_number, { :greater_than_or_equal_to => 0, :message => "Viitenumeron täytyy olla positiivinen numero!" }
   validates_numericality_of :bill_number, { :greater_than_or_equal_to => 0, :message => "Laskun numeron täytyy olla positiivinen numero!" }
 
-  @@tax = 0.13
+  @@tax = 0.14
   
   def self.get_banks
     ["Nordea", "Sampo", "Osuuspankki"]
