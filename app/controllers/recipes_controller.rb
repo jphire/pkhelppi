@@ -54,10 +54,10 @@ class RecipesController < ApplicationController
       
       if @recipe.product
         flash[:success] = "Uusi tuote luotu!"
-        redirect_to product_path(@recipe)
+        redirect_to products_path(:bakery_id => current_user.primary_firm.resource.id)
       else
         flash[:success] = "Uusi resepti luotu!"
-        redirect_to @recipe
+        redirect_to recipes_path(:bakery_id => current_user.primary_firm.resource.id)
       end
     else
       if @recipe.product
@@ -242,7 +242,7 @@ class RecipesController < ApplicationController
     
     def is_product
       current_uri = request.env['PATH_INFO']
-      if current_uri.include? "products"
+      if current_uri.include? "products" or params[:is_product]
         @is_product = true
       else
         @is_product = false

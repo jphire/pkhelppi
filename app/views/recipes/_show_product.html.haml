@@ -45,7 +45,7 @@
           %th Katteellinen hinta
           %th
             Alv 
-            = Recipe.get_tax * 100
+            = (Recipe.get_tax * 100).round(2)
             \%
           %th Myyntihinta
         %tbody

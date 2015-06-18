@@ -6,7 +6,7 @@
     .span5   
       .row.well
         %h2 Käyttäjät
-        = will_paginate @users, :previous_label => "Edellinen", :next_label => "Seuraava"
+        = will_paginate @users, :previous_label => "<", :next_label => ">"
         
         = link_to :controller => "firms", :action => "edit" do
           %i.icon-plus
@@ -43,7 +43,7 @@
               = text_field_tag :search_product, "", :class => "input search-query input-medium", :placeholder => "Etsi tuotteita"
               = submit_tag "Hae", :class => "btn btn-small"
 
-        = will_paginate @products, :param_name => 'product_page', :previous_label => "Edellinen", :next_label => "Seuraava", :search_product => @search_params
+        = will_paginate @products, :param_name => 'product_page', :previous_label => "<", :next_label => ">", :search_product => @search_params
         
         = link_to new_product_path(:bakery_id => @bakery.id) do
           %i.icon-plus
@@ -82,7 +82,7 @@
               = text_field_tag :search_recipe, "", :class => "input search-query input-large span1", :placeholder => "Etsi reseptejä"
               = submit_tag "Hae", :class => "btn btn-small"
 
-        = will_paginate @recipes, :param_name => 'recipe_page', :previous_label => "< Edellinen", :next_label => "Seuraava >", :search_recipe => @search_params
+        = will_paginate @recipes, :param_name => 'recipe_page', :previous_label => "<", :next_label => ">", :search_recipe => @search_params
         
         = link_to :controller => "recipes", :action => "new", :bakery_id => @bakery.id do
           %i.icon-plus
@@ -120,7 +120,7 @@
               = submit_tag "Hae", :class => "btn btn-small"
         
         
-        = will_paginate @materials, :param_name => 'material_page', :previous_label => "Edellinen", :next_label => "Seuraava", :search_material => @search_params
+        = will_paginate @materials, :param_name => 'material_page', :previous_label => "<", :next_label => ">", :search_material => @search_params
        
         = link_to :controller => "materials", :action => "new", :bakery_id => @bakery.id do
           %i.icon-plus
