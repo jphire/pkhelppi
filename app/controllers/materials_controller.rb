@@ -11,7 +11,7 @@ class MaterialsController < ApplicationController
   end
 
   def show
-    @tax = 0.13
+    @tax = 0.14
     @material = Material.find(params[:id])
   end
   
@@ -26,7 +26,7 @@ class MaterialsController < ApplicationController
     if @material.save
       @material.recipes.each { |r| r.save }
       flash[:success] = "Uusi raaka-aine luotu!"
-      redirect_to @bakery
+      redirect_to action: "index", :bakery_id => current_user.primary_firm.resource.id
     else
       render 'new'
     end
@@ -36,8 +36,7 @@ class MaterialsController < ApplicationController
   end
   
   def update
-    
-    
+
     if @material.recipes.empty?
       changed = nil
     else
@@ -70,7 +69,7 @@ class MaterialsController < ApplicationController
     @material.destroy
     Recipe.all.each { |r| r.save; r.reload }
     flash[:success] = "Raaka-aine poistettu."
-    redirect_to @bakery
+    redirect_to action: "index", :bakery_id => current_user.primary_firm.resource.id
   end
   
   private
@@ -83,7 +82,7 @@ class MaterialsController < ApplicationController
     end
     
     def firm_admin
-      @tax = 0.13
+      @tax = 0.14
       
       if params[:id]
         @material = Material.find(params[:id])
