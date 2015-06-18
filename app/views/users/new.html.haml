@@ -1,27 +1,21 @@
-- provide(:title, 'Luo käyttäjä')
-%h1 Luo käyttäjä
-
-.container
-  .span6.offset3
-    = link_to request.env["HTTP_REFERER"] do
-      %i.icon-arrow-left
-      Takaisin
+- provide(:title, 'Rekisteröidy')
+%h1 Rekisteröidy
 
 .row
-  .well.span6.offset3.blue
-    = form_for @user do |f|
-      = render 'shared/error_messages'
-      %p
-        = f.label :name, "Nimi" 
-        = f.text_field :name 
-      %p
-        = f.label :email, "Sähköposti"
-        = f.text_field :email 
-      %p
-        = f.label :password, "Salasana"
-        = f.password_field :password 
-      %p
-        = f.label :password_confirmation, "Varmistus" 
-        = f.password_field :password_confirmation 
-        = f.submit "Luo tilini", class: "btn btn-large btn-primary"
-      
+	.span4.offset4
+		= form_for @user do |f|
+			= render 'shared/error_messages'
+			%p
+				= f.label :name, "Nimi" 
+				= f.text_field :name 
+			%p
+				= f.label :email, "Sähköposti"
+				= f.text_field :email 
+			%p
+				= f.label :password, "Salasana"
+				= f.password_field :password 
+			%p
+				= f.label :password_confirmation, "Salasana uudelleen" 
+				= f.password_field :password_confirmation 
+				= f.submit "Luo tili", class: "btn btn-large btn-primary pull-right"
+			

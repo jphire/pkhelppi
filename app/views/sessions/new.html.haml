@@ -1,7 +1,7 @@
 - provide(:title, "Kirjaudu")
 %h1 Kirjaudu
 .row
-  .span6.offset3
+  .span4.offset4
     = form_for(:session, url: sessions_path) do |f|
       
       = f.label :email, "Sähköposti" 
@@ -10,6 +10,7 @@
       = f.label :password, "Salasana"
       = f.password_field :password 
      
-      = f.submit "Kirjaudu", class: "btn btn-large btn-primary"
-    
-    %p Oletko uusi? #{link_to "Luo käyttäjä!", signup_path}
+      = f.submit "Kirjaudu", class: "btn btn-large btn-primary pull-right"
+ 
+  .span4.offset4  
+    %p Ei vielä tiliä? #{link_to "Rekisteröidy", signup_path}
