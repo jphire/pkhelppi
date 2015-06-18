@@ -118,7 +118,7 @@ class FirmsController < ApplicationController
   private
     
     def set_tax
-      @tax = 0.13
+      @tax = 0.14
     end
     
     def signed_in_user

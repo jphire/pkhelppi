@@ -52,7 +52,7 @@ class BakeriesController < ApplicationController
     end
     
     def firm_admin
-      @tax = 0.13
+      @tax = 0.14
       if params[:id]
         @bakery = Bakery.find(params[:id])
         if @bakery and @bakery.firm 

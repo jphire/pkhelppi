@@ -129,7 +129,7 @@ class RecipesController < ApplicationController
       @safe_recipes = []
       @added_materials = []
       @added_recipes = []
-      @tax = 0.13
+      @tax = 0.14
       if params[:id]
         @recipe = Recipe.find(params[:id])
         @bakery = @recipe.bakery

@@ -11,7 +11,7 @@ class MaterialsController < ApplicationController
   end
 
   def show
-    @tax = 0.13
+    @tax = 0.14
     @material = Material.find(params[:id])
   end
   
@@ -82,7 +82,7 @@ class MaterialsController < ApplicationController
     end
     
     def firm_admin
-      @tax = 0.13
+      @tax = 0.14
       
       if params[:id]
         @material = Material.find(params[:id])
