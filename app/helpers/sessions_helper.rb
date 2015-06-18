@@ -16,7 +16,11 @@ module SessionsHelper
   def current_user=(user)
     @current_user = user
   end
-  
+
+  def get_current_year
+    2015
+  end
+
   def current_user
     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
   end

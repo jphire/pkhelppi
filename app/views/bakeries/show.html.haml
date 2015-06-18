@@ -3,98 +3,38 @@
 .span12.bordered-top
   %h2= @firm.name
   .row
-    .span5
-      - if is_admin?
-        .row.well
-          %aside.span4
-            %section
-              %h1
-                %p Nimi: #{@firm.name}
-                %p Y-tunnus: #{@firm.corporate_id}
-                %p Sijainti: #{@firm.location}
-                %p Toimiala: #{@firm.resource_type}
-                %p Kuvaus:   #{@bakery.description}
-              = link_to "Muokkaa tietoja",    edit_firm_path
-              |
-              = link_to "Kaikki yritykset",    firms_path
-      - else
-        .row.well.blue
-          .row
-            .span2
-              %h2 Reseptit
-            .span
-              = form_tag({ :controller => "bakeries", :action => "show" }, :class => "form-search form-inline") do
-                = text_field_tag :search_recipe, "", :class => "input search-query input-large span1", :placeholder => "Etsi reseptejä"
-                = submit_tag "Hae", :class => "btn btn-small"
-
-          = will_paginate @recipes, :param_name => 'recipe_page', :previous_label => "< Edellinen", :next_label => "Seuraava >", :search_recipe => @search_params
-          
-          = link_to :controller => "recipes", :action => "new", :bakery_id => @bakery.id do
-            %i.icon-plus
-            Lisää resepti
-          
-          %table.table.table-condensed.table-striped.table-bordered
-            %thead
-              %th Nimi
-              %th Lasken. hinta (€)
-              
-            %tbody
-              - @recipes.each do |recipe|
-                %tr
-                  %td.span4= link_to recipe.name, recipe
-                  %td.span3= recipe.get_price
-                  %td.span1
-                    = link_to :controller => "recipes", :action => "edit", :id => recipe.id do
-                      %i.icon-edit
-                  %td
-                    = link_to recipe, method: :delete, confirm: "Haluatko varmasti poistaa reseptin?" do
-                      %i.icon-remove
-                    
-          = link_to :controller => "recipes", :action => "new", :bakery_id => @bakery.id do
-            %i.icon-plus
-            Lisää resepti
-
-    .span5.offset1
-      .row.well.green
-        .row
-          .span2
-            %h2 Raaka-aineet
-          .span
-            = form_tag({ :controller => "bakeries", :action => "show" }, :class => "form-search form-inline") do
-              = text_field_tag :search_material, "", :class => "input search-query input-medium", :placeholder => "Etsi raaka-aineita"
-              = submit_tag "Hae", :class => "btn btn-small"
+    .span5   
+      .row.well
+        %h2 Käyttäjät
+        = will_paginate @users, :previous_label => "Edellinen", :next_label => "Seuraava"
         
-        
-        = will_paginate @materials, :param_name => 'material_page', :previous_label => "Edellinen", :next_label => "Seuraava", :search_material => @search_params
-       
-        = link_to :controller => "materials", :action => "new", :bakery_id => @bakery.id do
+        = link_to :controller => "firms", :action => "edit" do
           %i.icon-plus
-          Lisää raaka-aine
-        
+          Lisää käyttäjä
+          
         %table.table.table-condensed.table-striped.table-bordered
           %thead
             %th Nimi
-            %th Kilohinta (€)
-            
+            %th Email
+          
           %tbody
-            - @materials.each do |material|
+            - @firm.users.each do |user|
               %tr
-                %td.span4= link_to material.name, material
-                %td.span3= (material.price).round(2)
+                %td.span4= link_to user.name, user
+                %td.span3= user.email
                 %td.span1
-                  = link_to :controller => "materials", :action => "edit", :id => material.id do
+                  = link_to edit_user_path(user) do
                     %i.icon-edit
                 %td
-                  = link_to material, method: :delete, confirm: "Haluatko varmasti poistaa raaka-aineen?" do
+                  = link_to user, method: :delete, confirm: "Haluatko varmasti poistaa käyttäjän?" do
                     %i.icon-remove
-                       
-        = link_to :controller => "materials", :action => "new", :bakery_id => @bakery.id do
+                
+        = link_to :controller => "firms", :action => "edit" do
           %i.icon-plus
-          Lisää raaka-aine
-    
-  .row
-    .span5
-      .row.well.blue
+          Lisää käyttäjä
+
+    .span5.offset1
+      .row.well
         .row
           .span2
             %h2 Tuotteet
@@ -131,34 +71,81 @@
         = link_to new_product_path(:bakery_id => @bakery.id) do
           %i.icon-plus
           Lisää tuote
-      
-    .span5.offset1    
+  .row
+    .span5
       .row.well
-        %h2 Käyttäjät
-        = will_paginate @users, :previous_label => "Edellinen", :next_label => "Seuraava"
+        .row
+          .span2
+            %h2 Reseptit
+          .span
+            = form_tag({ :controller => "bakeries", :action => "show" }, :class => "form-search form-inline") do
+              = text_field_tag :search_recipe, "", :class => "input search-query input-large span1", :placeholder => "Etsi reseptejä"
+              = submit_tag "Hae", :class => "btn btn-small"
+
+        = will_paginate @recipes, :param_name => 'recipe_page', :previous_label => "< Edellinen", :next_label => "Seuraava >", :search_recipe => @search_params
         
-        = link_to :controller => "firms", :action => "edit" do
+        = link_to :controller => "recipes", :action => "new", :bakery_id => @bakery.id do
           %i.icon-plus
-          Lisää käyttäjä
-          
+          Lisää resepti
+        
         %table.table.table-condensed.table-striped.table-bordered
           %thead
             %th Nimi
-            %th Email
-          
+            %th Lasken. hinta (€)
+            
           %tbody
-            - @firm.users.each do |user|
+            - @recipes.each do |recipe|
               %tr
-                %td.span4= link_to user.name, user
-                %td.span3= user.email
+                %td.span4= link_to recipe.name, recipe
+                %td.span3= recipe.get_price
                 %td.span1
-                  = link_to edit_user_path(user) do
+                  = link_to :controller => "recipes", :action => "edit", :id => recipe.id do
                     %i.icon-edit
                 %td
-                  = link_to user, method: :delete, confirm: "Haluatko varmasti poistaa käyttäjän?" do
+                  = link_to recipe, method: :delete, confirm: "Haluatko varmasti poistaa reseptin?" do
                     %i.icon-remove
-                
-        = link_to :controller => "firms", :action => "edit" do
+                  
+        = link_to :controller => "recipes", :action => "new", :bakery_id => @bakery.id do
           %i.icon-plus
-          Lisää käyttäjä
+          Lisää resepti
+
+    .span5.offset1
+      .row.well
+        .row
+          .span2
+            %h2 Raaka-aineet
+          .span
+            = form_tag({ :controller => "bakeries", :action => "show" }, :class => "form-search form-inline") do
+              = text_field_tag :search_material, "", :class => "input search-query input-medium", :placeholder => "Etsi raaka-aineita"
+              = submit_tag "Hae", :class => "btn btn-small"
+        
+        
+        = will_paginate @materials, :param_name => 'material_page', :previous_label => "Edellinen", :next_label => "Seuraava", :search_material => @search_params
+       
+        = link_to :controller => "materials", :action => "new", :bakery_id => @bakery.id do
+          %i.icon-plus
+          Lisää raaka-aine
+        
+        %table.table.table-condensed.table-striped.table-bordered
+          %thead
+            %th Nimi
+            %th Kilohinta (€)
+            
+          %tbody
+            - @materials.each do |material|
+              %tr
+                %td.span4= link_to material.name, material
+                %td.span3= (material.price).round(2)
+                %td.span1
+                  = link_to :controller => "materials", :action => "edit", :id => material.id do
+                    %i.icon-edit
+                %td
+                  = link_to material, method: :delete, confirm: "Haluatko varmasti poistaa raaka-aineen?" do
+                    %i.icon-remove
+                       
+        = link_to :controller => "materials", :action => "new", :bakery_id => @bakery.id do
+          %i.icon-plus
+          Lisää raaka-aine
+    
       
+    
