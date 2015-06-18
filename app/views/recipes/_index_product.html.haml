@@ -6,9 +6,6 @@
   .span6.offset3
     = render "shared/nav"
 
-.span6.offset3
-  = will_paginate
-
 .container
   .span6.offset3.bordered
     = link_to new_product_path(:bakery_id => current_user.primary_firm.resource.id) do
@@ -44,5 +41,5 @@
       Lisää tuote
     
   .span6.offset3
-    = will_paginate
+    = will_paginate @recipes, :params => {:is_product => 1}, :previous_label => "<", :next_label => ">"
 
